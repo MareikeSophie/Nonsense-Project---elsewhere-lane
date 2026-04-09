@@ -1,0 +1,532 @@
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+.scene {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: #111;
+  border-radius: 20px;
+}
+
+.phone {
+  width: 300px;
+  height: 640px;
+  border-radius: 48px;
+  overflow: hidden;
+  position: relative;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  display: flex;
+  flex-direction: column;
+  background: #0d0d12;
+  font-family: sans-serif;
+}
+
+.statusbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 24px 0;
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  font-weight: 400;
+  flex-shrink: 0;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px 12px;
+  border-bottom: 0.5px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
+}
+
+.profile-orb {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%,100% { transform:scale(1); opacity:.9; }
+  50% { transform:scale(1.07); opacity:1; }
+}
+
+.profile-info { flex: 1; }
+
+.profile-name {
+  font-size: 13px;
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.profile-handle {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  margin-top: 1px;
+  letter-spacing: 0.06em;
+}
+
+.profile-stats {
+  display: flex;
+  gap: 14px;
+}
+
+.stat { text-align: center; }
+
+.stat-num {
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+  font-weight: 500;
+  display: block;
+}
+
+.stat-label {
+  font-size: 9px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+}
+
+.feed-scroll {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.feed-scroll::-webkit-scrollbar { display: none; }
+
+.post {
+  border-bottom: 0.5px solid rgba(255,255,255,0.06);
+  margin-bottom: 2px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px 8px;
+}
+
+.post-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.post-meta { flex: 1; }
+
+.post-name {
+  font-size: 12px;
+  color: rgba(255,255,255,0.8);
+  font-weight: 500;
+}
+
+.post-time {
+  font-size: 10px;
+  color: rgba(255,255,255,0.25);
+  margin-top: 1px;
+}
+
+.post-image {
+  width: 100%;
+  height: 180px;
+  position: relative;
+  overflow: hidden;
+}
+
+.post-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.post-body {
+  padding: 12px 16px 8px;
+}
+
+.post-text {
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.65;
+  font-style: italic;
+  font-family: Georgia, serif;
+}
+
+.post-actions {
+  display: flex;
+  gap: 16px;
+  padding: 6px 16px 10px;
+  align-items: center;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.25);
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s;
+  padding: 0;
+  letter-spacing: 0.04em;
+}
+
+.action-btn:hover { color: rgba(255,255,255,0.6); }
+
+.action-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.comments-section { padding: 0 16px 8px; }
+
+.comment {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: flex-start;
+}
+
+.comment-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 1px;
+}
+
+.comment-content { flex: 1; }
+
+.comment-user {
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.comment-text {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+}
+
+.comment-time {
+  font-size: 9px;
+  color: rgba(255,255,255,0.2);
+  margin-top: 2px;
+}
+
+.add-comment {
+  display: flex;
+  gap: 8px;
+  padding: 8px 16px 12px;
+  align-items: center;
+  border-top: 0.5px solid rgba(255,255,255,0.05);
+}
+
+.comment-input {
+  flex: 1;
+  background: rgba(255,255,255,0.06);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 7px 12px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  outline: none;
+  font-family: sans-serif;
+}
+
+.comment-input::placeholder { color: rgba(255,255,255,0.2); }
+
+.send-btn {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 0.5px solid rgba(255,255,255,0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.send-btn:hover { background: rgba(255,255,255,0.15); }
+
+.street-nav-bottom {
+  flex-shrink: 0;
+  height: 52px;
+  position: relative;
+  overflow: hidden;
+}
+
+.swipe-hints-feed {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 28px;
+  padding-top: 4px;
+  font-size: 9px;
+  color: rgba(255,255,255,0.15);
+  letter-spacing: 0.08em;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+}
+</style>
+
+<div class="scene">
+  <div class="phone" id="phone">
+
+    <div class="statusbar">
+      <span>9:41</span>
+      <span>· · ·</span>
+    </div>
+
+    <div class="profile-header">
+      <canvas class="profile-orb" id="profileOrb" width="38" height="38"></canvas>
+      <div class="profile-info">
+        <div class="profile-name">Elsewhere Lane</div>
+        <div class="profile-handle">@elsewhere.lane · still here</div>
+      </div>
+      <div class="profile-stats">
+        <div class="stat">
+          <span class="stat-num">312</span>
+          <span class="stat-label">days</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">47</span>
+          <span class="stat-label">voices</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feed-scroll" id="feedScroll">
+
+      <div class="post">
+        <div class="post-header">
+          <canvas class="post-avatar" id="postAvatar1" width="28" height="28"></canvas>
+          <div class="post-meta">
+            <div class="post-name">Elsewhere Lane</div>
+            <div class="post-time">Today, 06:14</div>
+          </div>
+        </div>
+        <div class="post-image">
+          <canvas class="post-canvas" id="postCanvas1" width="300" height="180"></canvas>
+        </div>
+        <div class="post-body">
+          <div class="post-text">"No one said my name today. I count the shadows of those who almost came. The morning light hit the same corner it always does. No one was there to see it."</div>
+        </div>
+        <div class="post-actions">
+          <button class="action-btn" onclick="toggleReaction(this)">
+            <span class="action-dot" style="background:rgba(155,89,182,0.6);"></span>
+            <span class="act-count">12 felt this</span>
+          </button>
+          <button class="action-btn">
+            <span class="action-dot" style="background:rgba(255,255,255,0.2);"></span>
+            <span>write back</span>
+          </button>
+        </div>
+        <div class="comments-section">
+          <div class="comment">
+            <div class="comment-avatar">A</div>
+            <div class="comment-content">
+              <div class="comment-user">anonymous_01</div>
+              <div class="comment-text">I walked past you yesterday. I didn't stop. I'm not sure why.</div>
+              <div class="comment-time">2h ago</div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="comment-avatar">M</div>
+            <div class="comment-content">
+              <div class="comment-user">marta.w</div>
+              <div class="comment-text">The corner you mention — I used to sit there. I haven't in a long time.</div>
+              <div class="comment-time">5h ago</div>
+            </div>
+          </div>
+        </div>
+        <div class="add-comment">
+          <div class="comment-avatar" style="width:24px;height:24px;font-size:9px;">you</div>
+          <input class="comment-input" placeholder="leave a trace..." id="commentInput1" />
+          <button class="send-btn" onclick="addComment(1)">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 6h8M7 3l3 3-3 3" stroke="rgba(255,255,255,0.5)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="post" style="opacity:0.7;">
+        <div class="post-header">
+          <canvas class="post-avatar" id="postAvatar2" width="28" height="28"></canvas>
+          <div class="post-meta">
+            <div class="post-name">Elsewhere Lane</div>
+            <div class="post-time">Yesterday, 06:09</div>
+          </div>
+        </div>
+        <div class="post-image">
+          <canvas class="post-canvas" id="postCanvas2" width="300" height="180"></canvas>
+        </div>
+        <div class="post-body">
+          <div class="post-text">"Someone walked quickly. They looked at their phone. I wondered what was more urgent than the crack in my wall that has been there since 1987."</div>
+        </div>
+        <div class="post-actions">
+          <button class="action-btn">
+            <span class="action-dot" style="background:rgba(155,89,182,0.4);"></span>
+            <span>8 felt this</span>
+          </button>
+          <button class="action-btn">
+            <span class="action-dot" style="background:rgba(255,255,255,0.2);"></span>
+            <span>write back</span>
+          </button>
+        </div>
+        <div class="comments-section">
+          <div class="comment">
+            <div class="comment-avatar">J</div>
+            <div class="comment-content">
+              <div class="comment-user">j.pierre</div>
+              <div class="comment-text">1987. That's before I was born. The crack knows more than I do.</div>
+              <div class="comment-time">1d ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="street-nav-bottom">
+      <div class="swipe-hints-feed">
+        <span>← home</span>
+        <span>traces →</span>
+      </div>
+      <svg viewBox="0 0 300 42" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:42px;display:block;margin-top:10px;">
+        <rect x="0" y="0" width="300" height="42" fill="rgba(0,0,0,0.5)"/>
+        <rect x="0" y="0" width="300" height="14" fill="rgba(8,8,12,0.9)"/>
+        <line x1="0" y1="14" x2="300" y2="14" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+        <rect x="0" y="0" width="32" height="14" fill="rgba(8,8,14,0.95)" rx="1"/>
+        <rect x="36" y="2" width="24" height="12" fill="rgba(10,8,12,0.9)" rx="1"/>
+        <rect x="64" y="0" width="28" height="14" fill="rgba(8,8,14,0.95)" rx="1"/>
+        <rect x="98" y="3" width="22" height="11" fill="rgba(10,10,14,0.85)" rx="1"/>
+        <rect x="126" y="0" width="30" height="14" fill="rgba(8,8,12,0.9)" rx="1"/>
+        <rect x="162" y="1" width="26" height="13" fill="rgba(10,8,12,0.9)" rx="1"/>
+        <rect x="194" y="0" width="32" height="14" fill="rgba(8,8,14,0.95)" rx="1"/>
+        <rect x="232" y="2" width="24" height="12" fill="rgba(10,10,14,0.85)" rx="1"/>
+        <rect x="262" y="0" width="38" height="14" fill="rgba(8,8,12,0.9)" rx="1"/>
+        <line x1="150" y1="14" x2="150" y2="42" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="6,6"/>
+      </svg>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function drawOrb(canvas, color1, color2, size) {
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  const cx = w/2, cy = h/2, r = Math.min(w,h)/2 - 1;
+  ctx.clearRect(0,0,w,h);
+  const grad = ctx.createRadialGradient(cx*0.7, cy*0.7, 0, cx, cy, r);
+  grad.addColorStop(0, color1);
+  grad.addColorStop(1, color2);
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI*2);
+  ctx.fillStyle = grad;
+  ctx.fill();
+}
+
+function drawMoodCanvas(canvasEl, color1, color2, color3, seed) {
+  const ctx = canvasEl.getContext('2d');
+  const w = canvasEl.width, h = canvasEl.height;
+  ctx.clearRect(0,0,w,h);
+  const bg = ctx.createLinearGradient(0,0,w,h);
+  bg.addColorStop(0, color1);
+  bg.addColorStop(0.6, color2);
+  bg.addColorStop(1, color3);
+  ctx.fillStyle = bg;
+  ctx.fillRect(0,0,w,h);
+  const rng = (n) => Math.abs(Math.sin(seed * 9301 + n * 49297) * 233280) % 1;
+  for (let i = 0; i < 6; i++) {
+    const x = rng(i*3) * w;
+    const y = rng(i*3+1) * h;
+    const r = 30 + rng(i*3+2) * 60;
+    const grad = ctx.createRadialGradient(x, y, 0, x, y, r);
+    grad.addColorStop(0, `rgba(255,255,255,${0.03 + rng(i)*0.04})`);
+    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI*2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+  }
+  for (let i = 0; i < 18; i++) {
+    const x1 = rng(i*7) * w;
+    const y1 = rng(i*7+1) * h;
+    const x2 = rng(i*7+2) * w;
+    const y2 = rng(i*7+3) * h;
+    ctx.beginPath();
+    ctx.moveTo(x1,y1);
+    ctx.lineTo(x2,y2);
+    ctx.strokeStyle = `rgba(255,255,255,${0.015 + rng(i)*0.025})`;
+    ctx.lineWidth = 0.5 + rng(i*2)*1;
+    ctx.stroke();
+  }
+}
+
+function toggleReaction(btn) {
+  const span = btn.querySelector('.act-count');
+  const dot = btn.querySelector('.action-dot');
+  const reacted = btn.dataset.reacted === '1';
+  if (!reacted) {
+    btn.dataset.reacted = '1';
+    span.textContent = '13 felt this';
+    dot.style.background = 'rgba(155,89,182,1)';
+    btn.style.color = 'rgba(200,160,230,0.9)';
+  } else {
+    btn.dataset.reacted = '0';
+    span.textContent = '12 felt this';
+    dot.style.background = 'rgba(155,89,182,0.6)';
+    btn.style.color = 'rgba(255,255,255,0.25)';
+  }
+}
+
+function addComment(postId) {
+  const input = document.getElementById('commentInput' + postId);
+  const text = input.value.trim();
+  if (!text) return;
+  const section = input.closest('.post').querySelector('.comments-section');
+  const div = document.createElement('div');
+  div.className = 'comment';
+  div.style.animation = 'none';
+  div.innerHTML = `
+    <div class="comment-avatar" style="width:20px;height:20px;font-size:8px;background:rgba(255,255,255,0.12);">you</div>
+    <div class="comment-content">
+      <div class="comment-user">you</div>
+      <div class="comment-text">${text}</div>
+      <div class="comment-time">just now</div>
+    </div>`;
+  section.appendChild(div);
+  input.value = '';
+  div.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+window.addEventListener('load', () => {
+  drawOrb(document.getElementById('profileOrb'), '#9b6abf', '#2c0f3a');
+  drawOrb(document.getElementById('postAvatar1'), '#9b6abf', '#2c0f3a');
+  drawOrb(document.getElementById('postAvatar2'), '#7a5090', '#1e0a28');
+  drawMoodCanvas(document.getElementById('postCanvas1'), '#1a1228', '#2d1b3d', '#120d1f', 1);
+  drawMoodCanvas(document.getElementById('postCanvas2'), '#1a1228', '#1e1530', '#0e0a1a', 2);
+});
+</script>

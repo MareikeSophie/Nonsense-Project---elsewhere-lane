@@ -1,0 +1,327 @@
+.fs-phone {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #0d0d12;
+  font-family: sans-serif;
+}
+
+.fs-statusbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 24px 0;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: 400;
+  flex-shrink: 0;
+}
+
+.fs-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px 12px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
+}
+
+.fs-profile-orb {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: fs-breathe 4s ease-in-out infinite;
+}
+
+@keyframes fs-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.07); opacity: 1; }
+}
+
+.fs-profile-info { flex: 1; }
+
+.fs-profile-name {
+  font-size: 13px;
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.fs-profile-handle {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 1px;
+  letter-spacing: 0.06em;
+}
+
+.fs-profile-stats {
+  display: flex;
+  gap: 14px;
+}
+
+.fs-stat { text-align: center; }
+
+.fs-stat-num {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  display: block;
+}
+
+.fs-stat-label {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+}
+
+/* --- Scrollable posts area --- */
+.fs-feed-scroll {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  min-height: 0; /* critical: lets flex child shrink below content height */
+}
+
+.fs-feed-scroll::-webkit-scrollbar { display: none; }
+
+/* --- Posts --- */
+.fs-post {
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 2px;
+}
+
+.fs-post.faded { opacity: 0.7; }
+
+.fs-post-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px 8px;
+}
+
+.fs-post-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.fs-post-meta { flex: 1; }
+
+.fs-post-name {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+.fs-post-time {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.25);
+  margin-top: 1px;
+}
+
+.fs-post-image {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+
+.fs-post-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.fs-post-body { padding: 12px 16px 8px; }
+
+.fs-post-text {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.65;
+  font-style: italic;
+  font-family: Georgia, serif;
+}
+
+.fs-post-actions {
+  display: flex;
+  gap: 16px;
+  padding: 6px 16px 10px;
+  align-items: center;
+}
+
+.fs-action-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s;
+  padding: 0;
+  letter-spacing: 0.04em;
+  font-family: sans-serif;
+}
+
+.fs-action-btn:hover,
+.fs-action-btn.reacted { color: rgba(200, 160, 230, 0.9); }
+
+.fs-action-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background 0.2s;
+}
+
+/* --- Comments --- */
+.fs-comments-section { padding: 0 16px 10px; }
+
+.fs-comment {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: flex-start;
+}
+
+.fs-comment.new {
+  animation: fs-comment-in 0.4s ease forwards;
+}
+
+@keyframes fs-comment-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fs-comment-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 1px;
+}
+
+.fs-comment-content { flex: 1; }
+
+.fs-comment-user {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.fs-comment-text {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.5;
+}
+
+.fs-comment-time {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.2);
+  margin-top: 2px;
+}
+
+/* --- Pinned "leave a trace" input bar --- */
+.fs-leave-trace {
+  flex-shrink: 0;
+  padding: 8px 14px 10px;
+  background: rgba(10, 10, 16, 0.95);
+  border-top: 0.5px solid rgba(255, 255, 255, 0.08);
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.fs-leave-trace.highlighted {
+  border-top-color: rgba(155, 89, 182, 0.5);
+  background: rgba(20, 10, 28, 0.97);
+}
+
+.fs-leave-trace-label {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.fs-leave-trace-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.fs-trace-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 7px 13px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: Georgia, serif;
+  font-style: italic;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.fs-trace-input::placeholder { color: rgba(255, 255, 255, 0.2); }
+
+.fs-trace-input:focus {
+  border-color: rgba(155, 89, 182, 0.4);
+}
+
+.fs-trace-send {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.fs-trace-send:hover:not(:disabled) { background: rgba(255, 255, 255, 0.13); }
+
+.fs-trace-send:disabled { opacity: 0.3; cursor: default; }
+
+/* --- Bottom cityscape strip --- */
+.fs-street-nav-bottom {
+  flex-shrink: 0;
+  height: 52px;
+  position: relative;
+  overflow: hidden;
+}
+
+.fs-swipe-hints {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 28px 0;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.15);
+  letter-spacing: 0.08em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.fs-street-svg {
+  width: 100%;
+  height: 42px;
+  display: block;
+  margin-top: 10px;
+}
